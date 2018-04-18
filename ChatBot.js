@@ -9,7 +9,9 @@ function MonaBot() {
     
     this.simsimi = new Simsimi({
       key: config.simsimi,
-      lc: 'vn'
+      api: 'http://api.simsimi.com/request.p',
+      ft: '0.5',
+      lc: 'vn',
     });
 
     this.init();
