@@ -1,0 +1,23 @@
+{
+  "name": "chatbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "ChatBot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bamboo3250/ChatBot.git"
+  },
+  "author": "bamboo3250",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bamboo3250/ChatBot/issues"
+  },
+  "homepage": "https://github.com/bamboo3250/ChatBot#readme",
+  "dependencies": {
+    "discord.js": "^11.3.2",
+    "simsimi": "^2.0.2"
+  }
+}
