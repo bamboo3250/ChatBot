@@ -56,7 +56,7 @@ MonaBot.prototype.handleMessage = function(message) {
 
     if (message.channel.name === 'chém-gió') {
         let self = this;
-        let content = message.content.replace(/[~`!@#$%^&*()_+{}:;"'<>?,./]/g, '');
+        let content = message.content.replace(/[~`!@#$%^&*()_+{}:;"'<>?,./=]/g, '');
         if (content.length === 0) return;
         
         console.log('sent ' + content);
