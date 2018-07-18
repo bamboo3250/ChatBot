@@ -10,7 +10,7 @@ function MonaBot() {
     this.simsimi = new Simsimi({
       key: config.simsimi,
       api: 'http://api.simsimi.com/request.p',
-      ft: 0.5,
+      ft: 0.1,
       lc: 'vn',
     });
 
