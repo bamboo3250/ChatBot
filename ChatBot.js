@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const config = require('./config');
+const replies = require('./reply');
 const Simsimi = require('simsimi');
 
 function MonaBot() {
@@ -51,22 +52,62 @@ MonaBot.prototype.login = function() {
     this.client.login(config.token);
 };
 
-MonaBot.prototype.handleMessage = function(message) {
-    if (message.author.id == this.client.user.id) return;
+function containOneOfKeywords(text, keywords) {
+    for(let i = 0; i < keywords.length; i++) {
+        if (text.includes(keywords[i])) return true;
+    }
+    return false;
+}
 
-    if (message.channel.name === 'chém-gió') {
-        let self = this;
-        let content = message.content.replace(/[~`!@#$%^&*()_+{}:;"'<>?,./=]/g, '');
+MonaBot.prototype.handleMessage = function(message) {
+    if (message.author.id === this.client.user.id) return;
+
+    if (message.channel.name === 'thảo-luận-chung') {
+        let content = message.content.toLocaleLowerCase().replace(/[~`!@#$%^&*()_+{}:;"'<>?,./=]/g, '');
         if (content.length === 0) return;
-        
-        console.log('sent ' + content);
-        this.simsimi.listen(content, (err, msg) => {
-            if (err) {
-                self.log(`[Simsimi Error] ${JSON.stringify(err)}`);
+
+        if (message.mentions.users.has(this.client.user.id)) {
+            this.simsimi.listen(content, (err, msg) => {
+                if (err) {
+                    this.log(`[Simsimi Error] ${JSON.stringify(err)}`);
+                    return;
+                }
+                message.reply(msg);
+            });
+            return;
+        }
+
+        for (let i = 0; i < replies.length; i++) {
+            let reply = replies[i];
+            if (containOneOfKeywords(content, reply.keywords)) {
+                if (randomInt(100) > 33) {
+                    return;
+                }
+
+                if (randomInt(3) < 2) {
+                    message.reply(reply.reply[randomInt(reply.reply.length)]);
+                } else {
+                    this.simsimi.listen(content, (err, msg) => {
+                        if (err) {
+                            this.log(`[Simsimi Error] ${JSON.stringify(err)}`);
+                            return;
+                        }
+                        message.reply(msg);
+                    });
+                }
                 return;
+            } else {
+                if (randomInt(100) === 0) {
+                    this.simsimi.listen(content, (err, msg) => {
+                        if (err) {
+                            this.log(`[Simsimi Error] ${JSON.stringify(err)}`);
+                            return;
+                        }
+                        message.channel.send(msg);
+                    });
+                }
             }
-            message.reply(msg);
-        });
+        }
     }
 };
 
@@ -83,9 +124,13 @@ MonaBot.prototype.createEmbed = function(title) {
             .setFooter('by JHP-TMA group');
 }
 
+function randomInt(maxNumber) {
+    return Math.floor(Math.random() * maxNumber);
+}
+
 MonaBot.prototype.random = function(list) {
 	if (!list) return null;
-	return list[Math.floor(Math.random()*list.length)];
+	return list[randomInt(list.length)];
 }
 
 const myBot = new MonaBot();
