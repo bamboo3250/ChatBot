@@ -69,7 +69,7 @@ MonaBot.prototype.handleMessage = function(message) {
         for (let i = 0; i < replies.length; i++) {
             let reply = replies[i];
             if (containOneOfKeywords(content, reply.keywords)) {
-                if (randomInt(100) > 33) {
+                if (randomInt(100) > 20) {
                     return;
                 }
 
@@ -86,7 +86,7 @@ MonaBot.prototype.handleMessage = function(message) {
                 }
                 return;
             } else {
-                if (randomInt(1000) < 1) {
+                if (randomInt(1000) < 5) {
                     this.simsimi.listen(content, (err, msg) => {
                         if (err) {
                             this.log(`[Simsimi Error] ${JSON.stringify(err)}`);
