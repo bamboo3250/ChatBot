@@ -97,7 +97,7 @@ MonaBot.prototype.handleMessage = function(message) {
                 }
                 return;
             } else {
-                if (randomInt(100) === 0) {
+                if (randomInt(100) < 3) {
                     this.simsimi.listen(content, (err, msg) => {
                         if (err) {
                             this.log(`[Simsimi Error] ${JSON.stringify(err)}`);
