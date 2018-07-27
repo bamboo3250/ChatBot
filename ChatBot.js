@@ -66,17 +66,6 @@ MonaBot.prototype.handleMessage = function(message) {
         let content = message.content.toLocaleLowerCase().replace(/[~`!@#$%^&*()_+{}:;"'<>?,./=]/g, '');
         if (content.length === 0) return;
 
-        if (message.mentions.users.has(this.client.user.id)) {
-            this.simsimi.listen(content, (err, msg) => {
-                if (err) {
-                    this.log(`[Simsimi Error] ${JSON.stringify(err)}`);
-                    return;
-                }
-                message.reply(msg);
-            });
-            return;
-        }
-
         for (let i = 0; i < replies.length; i++) {
             let reply = replies[i];
             if (containOneOfKeywords(content, reply.keywords)) {
