@@ -11,7 +11,7 @@ function MonaBot() {
     this.simsimi = new Simsimi({
       key: config.simsimi,
       api: 'http://api.simsimi.com/request.p',
-      ft: 0.1,
+      ft: 0.5,
       lc: 'vn',
     });
 
@@ -97,7 +97,7 @@ MonaBot.prototype.handleMessage = function(message) {
                 }
                 return;
             } else {
-                if (randomInt(100) < 3) {
+                if (randomInt(100) < 2) {
                     this.simsimi.listen(content, (err, msg) => {
                         if (err) {
                             this.log(`[Simsimi Error] ${JSON.stringify(err)}`);
