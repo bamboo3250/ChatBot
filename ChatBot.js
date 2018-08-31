@@ -62,6 +62,18 @@ function containOneOfKeywords(text, keywords) {
 MonaBot.prototype.handleMessage = function(message) {
     if (message.author.id === this.client.user.id) return;
 
+    if (message.channel.name === 'chém-gió') {
+        let content = message.content.replace(/[~`!@#$%^&*()_+{}:;"'<>?,./=]/g, '');
+
+        this.simsimi.listen(content, (err, msg) => {
+            if (err) {
+                this.log(`[Simsimi Error] ${JSON.stringify(err)}`);
+                return
+            }
+            message.reply(msg);
+        });
+    }
+
     if (message.channel.name === 'thảo-luận-chung') {
         let content = message.content.toLocaleLowerCase().replace(/[~`!@#$%^&*()_+{}:;"'<>?,./=]/g, '');
         if (content.length === 0) return;
