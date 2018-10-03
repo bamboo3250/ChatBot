@@ -15,6 +15,14 @@ function MonaBot() {
       lc: 'vn',
     });
 
+    this.timeLastReceiveMessage = Date.now().valueOf();
+
+    setInterval(async () => {
+        if (Date.now().valueOf() - this.timeLastReceiveMessage > 30 * 60 * 1000) {
+            process.exit();
+        }
+    }, 30*60*1000);
+
     this.init();
 }
 
@@ -60,6 +68,7 @@ function containOneOfKeywords(text, keywords) {
 }
 
 MonaBot.prototype.handleMessage = function(message) {
+    this.timeLastReceiveMessage = Date.now().valueOf();
     if (message.author.id === this.client.user.id) return;
 
     if (message.channel.name === 'chém-gió') {
